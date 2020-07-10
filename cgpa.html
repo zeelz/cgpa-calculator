@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Zeelz CGPA Calculator - Computer Science, University of Port Harcourt</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta name="description" content="Made with love by Keme Kenneth (Zeelz). CGPA Calculator - Computer Science, University of Port Harcourt.">
+	    <meta name="author" content="Keme Kenneth">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- <link rel="stylesheet" href="bootstrap.min.css" > -->		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<style type="text/css">
+			.container {
+				margin-top: 50px;
+			}
+
+			.cgpa-wrapper {
+				margin: 50px 0 30px;
+				display: none;
+			}
+			.cgpa-wrapper .cgpa {
+				font-size: 15em;
+				font-weight: bold;
+				color: blue;
+				line-height: 0.85em;
+
+			    text-shadow: 3px 2px 0 #b6daf3;
+			}
+			.cgpa-wrapper .cgpa input {
+				border: none;
+			    width: 100%;
+			    text-align: center;
+		        background: transparent;
+			}
+
+			.cgpa-wrapper p:not(.cgpa) {
+				color:  #CCC;
+				font-size: 2em;
+			}
+			.joined-inputs > div {
+				padding: 0!important;
+				border:  solid 1px #CCC;
+			}
+			.joined-inputs input, .joined-inputs button, .joined-inputs select {
+				border-radius: 0!important;
+				border:  none!important;
+			}
+			.select-wrapper select {
+				border:  none!important;
+			}
+			.joined-inputs .button-w {
+				border-color: #5cb85c;
+			}
+			.joined-inputs .button-w input {
+				padding: 7px!important;
+			}
+
+			/* MEDIA QUERY < 768PX */
+
+			@media (max-width: 768px){
+
+				.joined-inputs > div {
+					margin: 5px 0;
+				}
+				.cgpa-wrapper .cgpa {
+				    font-size: 9em;
+				}
+				.cgpa-wrapper {
+				    margin-top: 0px!important;
+				}
+			}
+
+			#grader-button {
+				padding: 10px 50px;
+				display: none;
+				box-shadow: 2px 2px 0px 1px #a3cff5;
+			}
+			.invalid-feedback-select, .invalid-feedback-input {
+				display: none;
+			}
+			#grade-holder {
+				margin-bottom: 25px;
+			}
+
+			#grade-holder li {
+				position: relative;
+			}
+			#grade-holder li a {
+				text-decoration: none;
+				position: absolute;
+				content: "";
+				display: block;
+				right: 15px;
+				cursor: pointer;
+				/* font-weight: bold;    */
+				/* border: solid 0.5px; */
+				padding: 0 7px;
+				margin: 0;
+			    width: 20px;
+			    height: 6px;
+			    border-radius: 10px;
+			    color: #FFF;
+			    top: 50%;
+    			margin-top: -3px;
+    			background: #fb3f3f;
+			}
+
+			.footer {
+				margin: 50px 0;
+				text-align: center;
+				font-size: 0.8em;
+				color: #a5a5a5;
+			}
+			.footer span {
+				font-style: italic;
+			}
+			.footer a {
+				text-decoration: none;
+				color: #5bb85b;
+			}
+			.footer span.heart {
+				font-style: normal;
+				color: #5bb85b;
+    			font-size: 1.1em;
+			}
+			.heading {
+				margin-bottom: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">			
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+					<div class="cgpa-wrapper text-center">
+						<p class="cgpa">
+						<input type="text" disabled=""></p>
+						<p>Your CGPA</p>
+					</div>
+					<div class="heading text-center">
+						<h1>Know Your Current CGPA</h1>
+						<p>Select a course and enter its corresponding score/grade</p>
+					</div>
+					<form class="form-horizontal" action="gradecalculator.php" method="post" id="courses-form">
+						
+						<div class="form-group joined-inputs">
+							<div class="col-md-5 select-wrapper">							
+								<select name="courses[]" id="courses" class="form-control">
+									<option disabled selected>Select Course</option>
+									<option disabled>YEAR 1</option>
+								    <option value="ges100">GES 100</option>
+								    <option value="ges101">GES 101</option>
+								    <option value="fsb101">FSB 101</option>
+								    <option value="phy101">PHY 101</option>
+								    <option value="ges102">GES 102</option>
+								    <option value="phy102">PHY 102</option>
+								    <option value="phy103">PHY 103</option>
+								    <option value="ges103">GES 103</option>
+								    <option value="mth110">MTH 110</option>
+								    <option value="phy112">PHY 112</option>
+								    <option value="mth114">MTH 114</option>
+								    <option value="mth120">MTH 120</option>
+								    <option value="mht124">MHT 124</option>
+								    <option value="chm130">CHM 130</option>
+								    <option value="sta160">STA 160</option>
+								    <option value="csc180">CSC 180</option>
+								    <option value="csc182">CSC 182</option>
+								    <option value="csc183">CSC 183</option>
+									<option disabled>YEAR 2</option>
+								    <option value="mth210">MTH 210</option>
+								    <option value="mth224">MTH 224</option>
+								    <option value="mth250">MTH 250</option>
+								    <option value="sta260">STA 260</option>
+								    <option value="sta262">STA 262</option>
+								    <option value="mth270">MTH 270</option>
+								    <option value="csc280">CSC 280</option>
+								    <option value="csc281">CSC 281</option>
+								    <option value="csc282">CSC 282</option>
+								    <option value="csc283">CSC 283</option>
+								    <option value="csc284">Csc 284</option>
+								    <option value="csc285">CSC 285</option>
+								    <option value="csc286">CSC 286</option>
+								    <option value="csc287">CSC 287</option>
+								    <option value="csc288">CSC 288</option>
+								    <option value="fsc2c1">FSC 2C1</option>
+									<option disabled="">YEAR 3</option>
+								    <option value="ges300">GES 300</option>
+								    <option value="csc300">CSC 300</option>
+								    <option value="phy351">PHY 351</option>
+								    <option value="sta370">STA 370</option>
+								    <option value="csc382">CSC 382</option>
+								    <option value="csc394">CSC 394</option>
+								    <option value="csc395">CSC 395</option>
+								    <option value="csc396">CSC 396</option>
+								    <option value="csc397">CSC 397</option>
+									<option disabled="">YEAR 4</option>
+								    <option value="ges400">GES 400</option>
+								    <option value="csc470">CSC 470</option>
+								    <option value="csc480">CSC 480</option>
+								    <option value="csc481">CSC 481</option>
+								    <option value="csc482">Csc 482</option>
+								    <option value="csc483">CSC 483</option>
+								    <option value="csc486">CSC 486</option>
+								    <option value="csc491">CSC 491</option>
+								    <option value="csc492">CSC 492</option>
+								    <option value="csc493">CSC 493</option>
+								    <option value="csc494">CSC 494</option>
+								    <option value="csc495">CSC 495</option>
+								    <option value="csc496">CSC 496</option>
+								    <option value="csc497">CSC 497</option>
+								    <option value="csc498">CSC 498</option>
+								</select>					
+							</div>
+							<div class="col-md-5">		
+								<label class="sr-only">Exam Score</label>
+								<input type="number" pattern="[0-9]{-2}" name="score" id="score" class="form-control" placeholder="Exam Score:">
+							</div>
+							<div class="col-md-2 button-w">
+								<input type="submit" value="Add Course" class="btn btn-success btn-block">
+							</div>
+							<p class="invalid-feedback-input text-center text-danger">Enter a valid score</p>
+							<p class="invalid-feedback-select text-center text-danger">Select a course</p>
+						</div>
+						<div class="form-group">
+						</div>
+					</form>
+
+					
+					<div id="grade-holder" class="">
+						<ul class="list-group">
+							
+						</ul>
+					</div>
+
+					<form action="gradecalculator.php" method="post" id="grader-form" class="text-center">
+						<input type="submit" value="Check CGPA" class="btn btn-primary" id="grader-button">
+					</form>
+
+					<div class="footer">
+						<hr>
+						<p>Made with <span class="heart">&hearts;</span> by <strong title="Keme Kenneth">Zeelz.</strong> CGPA Calculator - Computer Science, University of Port Harcourt. <span><br>Post feedback and bugs at <a href="https://github.com/zeelz/zeelz.github.io/blob/master/cgpa.html">GitHub</a></span> </p>
+					</div>
+				</div>
+			</div>			
+		</div>
+
+		<!-- <script type="text/javascript" src="jquery-3.1.1.min.js"></script> -->
+		<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<!-- <script type="text/javascript" src="bootstrap.min.js"></script> -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+		
+		<script type="text/javascript">
+
+/* --------------------- functions ------------------- */
+			function credit_unit(course){
+				var two_units = ["csc180","csc182","csc183","csc281","csc282","csc283","csc284","csc285","csc286","csc287","csc288","csc382","csc482","csc483","csc491","csc492","csc493","csc495","csc496","csc497","ges101","ges102","ges103","ges300","ges400","mth224", "phy102"];
+
+				three_units = ["chm130","csc280","csc394","csc395","csc480","csc481","csc486","csc494","csc498","csc396","csc397","fsb101","ges100","mth124","mth114","mth120","mth210","mth250","mth270","phy101","phy351","phy112","sta160","sta260","sta262","sta370"];
+			// phy102 > 2 cu
+				var cu;
+				if (course == "fsc2c1" || course == "phy103") {	
+					cu = 1;
+				} else if (two_units.indexOf(course) !== -1) { // JS equivalent of in_array()
+					cu = 2;
+				} else if (three_units.indexOf(course) !== -1) {		
+					cu = 3;
+				} else if (course == "mth110") {		
+					cu = 4;
+				} else if (course == "csc470") {		
+					cu = 6;
+				} else if (course == "csc300") {		
+					cu = 9;
+				}
+				return cu;
+			}
+
+			function quality_point(course, grade){
+
+				var gp;
+				switch(true){
+					case (grade >= 70):
+						gp = 5; 
+						break; 
+					case (grade >= 60):
+						gp = 4;
+						break; 
+					case (grade >= 50):
+						gp = 3;
+						break;
+					case (grade >= 45):
+						gp = 2;
+						break; 
+					case (grade >= 40):
+						gp = 1;
+						break;
+					default:
+						gp = 0;
+						break;
+				}
+				return credit_unit(course) * gp;
+			}
+
+			function total_credit_units(courses){
+				var tcu = 0;
+				for (var i = 0; i < courses.length; i++) {
+					course_grade = courses[i].split("-");
+					tcu += credit_unit(course_grade[0]);
+				}
+				return tcu;
+			}
+/* --------------------- */
+			// $('#grader-button, .cgpa-wrapper').hide();
+			var courseScoreData = [];
+			$('#courses-form').on('submit', function(e){
+				var courses = $('#courses').val();
+				var score = $('#score').val();
+
+				if ( courses == "" || courses == null ) {
+					$(".invalid-feedback-select").show();
+				}
+				else if ( score == "" || score == null || score.length > 2 ) {
+					$(".invalid-feedback-input").show();
+					$(".invalid-feedback-select").hide()
+				}  else {				
+					$(".invalid-feedback-select").hide();
+					$(".invalid-feedback-input").hide();
+					$('#grade-holder ul').prepend("<li class='list-group-item'>" +courses.toUpperCase()+ " - " +score+ "</li>");
+
+					var deleteHandle = $("<a>").html("X");
+					// $('#grade-holder ul li:first-child').append(deleteHandle);
+
+					$("<a/>",{text: ""}).appendTo($('#grade-holder ul li:first-child'));
+					//$("<div />", {attr: "value", text: "content"}).appendTo(selectorToAttachItTo);
+
+					courseScoreData.push(courses+ "-" +score);
+
+					$('#grader-button').show();
+				}
+				e.preventDefault();
+			});
+
+			$('#grader-button').on('click', function(e){
+
+				// var courses =  ["phy101-23", "ges103-23", "mth110-76"];
+
+				var total_qp = 0;
+				for(var i = 0; i < courseScoreData.length; i++) {
+					var course_grade = courseScoreData[i].split("-");
+					total_qp += quality_point(course_grade[0], Number(course_grade[1]));
+				}
+				var raw_cgpa =  total_qp / total_credit_units(courseScoreData);
+				var cgpa = parseFloat(raw_cgpa).toFixed(2);
+				
+				// data
+				/* Before animejs
+				console.log(data);
+				$(".cgpa input").val(data);
+				*/
+
+				var domAttributes = anime({
+				  targets: '.cgpa input',
+				  value: cgpa,
+				  round: 100,
+				  easing: 'easeInOutSine',
+				  duration: 2000
+				});
+				$(".cgpa-wrapper").show();
+									
+				/* Scroll to 100 top */
+				scrollTo(0,50);
+			
+				e.preventDefault();
+			});
+
+			$("#grade-holder").on('click','a', function(e){
+				//Remove the li from ul element
+				$(this).parent().remove();
+				
+				var fText = $(this).parent().text().toLowerCase().replace(/[ ]/g, "");
+
+				//Remove list item from list object
+				var pos = courseScoreData.indexOf(fText);
+				courseScoreData.splice(pos,1);
+
+				if (courseScoreData.length < 1) {
+					$("#grader-button").toggle();
+				}
+				e.preventDefault();
+			});
+		</script>
+
+	</body>
+</html>
